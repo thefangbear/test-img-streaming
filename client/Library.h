@@ -25,8 +25,14 @@
 
 //========= NETWRK ===============
 #define SERVER_PORT "1111"
+#define CLIENT_PORT "33840"
 #define SHORT_SERVER_PORT 1111
-#define SERVER_ADDRESS "localhost"
+
+#define SHORT_CLIENT_PORT 88
+#define SERVER_ADDRESS "192.168.1.213"
+
+//#define SERVER_ADDRESS "localhost"
+
 #define CAMERA_NUMBER 0
 #define BUF_LEN 65540 // Larger than maximum UDP packet size
 

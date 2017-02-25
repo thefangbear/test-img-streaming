@@ -157,8 +157,10 @@ public class UDPStreamer {
         UDPStreamer streamer =
                 new UDPStreamer(
                         "/home/alex/Projects/test-img-streaming/client/build/libUDPStreamer.so",
-                        "client");
-
+                        "server");
+        // Tests
+        //streamer.clientBlockingSendFrame();
+        streamer.serverShowFrameBlocking();
     }
 
 }

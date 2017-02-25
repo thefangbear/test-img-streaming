@@ -47,11 +47,19 @@ void Server::Show(Mat &m) {
     imshow("server image window", m);
 }
 
+void debug(string s) { cout << s << endl; }
+
 void Server::ShowReceiveBlocking() {
-    unsigned short servPort = atoi(SERVER_PORT); // First arg:  local port
+
+    cout << "Entered ShowReceiveBlocking()\n";
+
+    unsigned short servPort = SHORT_CLIENT_PORT; // First arg:  local port
 
     namedWindow("recv", CV_WINDOW_AUTOSIZE);
     try {
+
+        debug("inside try");
+
         UDPSocket sock(servPort);
 
         char buffer[BUF_LEN]; // Buffer for echo string
@@ -65,10 +73,15 @@ void Server::ShowReceiveBlocking() {
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
         while (1) {
             // Block until receive message from a client
+
+            debug("inside while");
+
             do {
                 recvMsgSize = sock.recvFrom(buffer, BUF_LEN, sourceAddress, sourcePort);
             } while (recvMsgSize > sizeof(int));
             int total_pack = ((int *) buffer)[0];
+
+            debug("received total_pack");
 
             cout << "expecting length of packs:" << total_pack << endl;
             char *longbuf = new char[PACK_SIZE * total_pack];

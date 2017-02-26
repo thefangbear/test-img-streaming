@@ -44,6 +44,29 @@ public class UDPStreamer {
      */
     private native void _n_Client_sendCustomFrame(byte[] bs);
 
+    /**
+     * _n_Client_writeFrame: writes a camera frame to disk
+     * @param path
+     */
+    private native void _n_Client_writeFrame(String path);
+
+    /**
+     * _n_Client_writeAndSend: writes and sends a camera frame over network and to disk
+     * @param path
+     */
+    private native void _n_Client_writeAndSend(String path);
+
+    /**
+     * _n_Client_write: writes a frame to disk
+     */
+    private native void _n_Client_writeCustomFrame(String path, byte[] bs);
+
+
+    /**
+     * _n_Client_writeAndSend: writes and sends a frame over network
+     */
+    private native void _n_Client_writeAndSendCustom(String path, byte[] bs);
+
     //
     //===========================SERVER=================================
     //

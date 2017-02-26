@@ -121,6 +121,17 @@ void Server::ShowReceiveBlocking() {
     }
 }
 
+void Server::WriteStreamedFrame(std::string path) {
+    Mat m = this->Receive();
+    imwrite(path, m);
+}
+
+void Server::ShowAndWrite(std::string path) {
+    Mat m = this->Receive();
+    imwrite(path, m);
+    this->Show(m);
+}
+
 Client::Client(std::string server, unsigned short port, int cameraNumber, int imageQuality, int imageW, int imageH)
         : destAddr(server),
           destPort(port),
@@ -220,6 +231,28 @@ Mat Client::Capture() {
     v >> frame;
     if (frame.size().width == 0); // integrity check (skip errors)
     return frame;
+}
+
+void Client::Write(string path, cv::Mat& frame) {
+    imwrite(path, frame);
+}
+
+void Client::Write(string path, vector<unsigned char> v) {
+    ofstream out(path.data(), ios::out | ios::binary);
+    const char *p = reinterpret_cast<const char *>(v.data());
+    out.write(p, v.size() * sizeof(char));
+}
+
+void Client::WriteAndSend(string path, cv::Mat& frame) {
+    imwrite(path, frame);
+    this->Send(frame);
+}
+
+void Client::WriteAndSend(string path, vector<unsigned char> v) {
+    ofstream out(path.data(), ios::out | ios::binary);
+    const char *p = reinterpret_cast<const char *>(v.data());
+    out.write(p, v.size() * sizeof(char));
+    this->Send(v);
 }
 
 /*
